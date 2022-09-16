@@ -41,6 +41,7 @@ public class PlayerController : MonoBehaviour
 
         //The sphere check draws a sphere like a ray cast and returns true if any collider is withing its radius.
         //grounded is set to true if a sphere at feetTrans.position with a radius of groundCheckDist detects any objects on groundLayer within it
+        groundLayer = LayerMask.GetMask("Ground");
         grounded = Physics.CheckSphere(feetTrans.position, groundCheckDist, groundLayer);
     }
 
