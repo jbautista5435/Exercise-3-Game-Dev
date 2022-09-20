@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// TC edited the moveSpeed to 50 and swappwed the multiplication of the lookspeed variables
+// TC also deleted the main camera to allow first person to work in the Unity object explorer
+
 public class PlayerController : MonoBehaviour
 {
-    int moveSpeed = 500; // how fast the player moves
+    int moveSpeed = 25; // how fast the player moves
     float lookSpeedX = 6; // left/right mouse sensitivity
     float lookSpeedY = 3; // up/down mouse sensitivity
-    int jumpForce = 50; // ammount of force applied to create a jump
+    int jumpForce = 250; // ammount of force applied to create a jump
 
     public Transform camTrans; // a reference to the camera transform
     float xRotation;
@@ -42,13 +45,14 @@ public class PlayerController : MonoBehaviour
         //The sphere check draws a sphere like a ray cast and returns true if any collider is withing its radius.
         //grounded is set to true if a sphere at feetTrans.position with a radius of groundCheckDist detects any objects on groundLayer within it
         grounded = Physics.CheckSphere(feetTrans.position, groundCheckDist, groundLayer);
+        Debug.Log("Player is " + grounded);
     }
 
     void Update()
     {
-        yRotation += Input.GetAxis("Mouse Y") * lookSpeedX;
-        xRotation += Input.GetAxis("Mouse X") * lookSpeedY; //inverted
-        xRotation = Mathf.Clamp(xRotation, -90, 90); //Keeps up/down head rotation realistic
+        yRotation += Input.GetAxis("Mouse Y") * lookSpeedY;
+        xRotation += Input.GetAxis("Mouse X") * lookSpeedX; //inverted
+        xRotation = Mathf.Clamp(xRotation, -180, 180); //Keeps up/down head rotation realistic
         camTrans.localEulerAngles = new Vector3(xRotation, 0, 0);
         transform.eulerAngles = new Vector3(0, yRotation, 0);
 
