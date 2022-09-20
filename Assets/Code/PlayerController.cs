@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// TC edited the moveSpeed to 50 and swappwed the multiplication of the lookspeed variables
-// TC also deleted the main camera to allow first person to work in the Unity object explorer
+// TC edited the moveSpeed to 50 and swappwed the multiplication of the lookspeed variables -- [mohammedajao]
+// TC also deleted the main camera to allow first person to work in the Unity object explorer -- [mohammedajao]
 
 public class PlayerController : MonoBehaviour
 {
@@ -32,6 +32,7 @@ public class PlayerController : MonoBehaviour
 #endif
         _rigidbody = GetComponent<Rigidbody>(); // Using GetComponent is expensive. Always do it in start and chache it when you can.
         Cursor.lockState = CursorLockMode.Locked; // Hides the mouse and locks it to the center of the screen.
+        Cursor.visible = false;
     }
 
     void FixedUpdate()
@@ -45,15 +46,19 @@ public class PlayerController : MonoBehaviour
         //The sphere check draws a sphere like a ray cast and returns true if any collider is withing its radius.
         //grounded is set to true if a sphere at feetTrans.position with a radius of groundCheckDist detects any objects on groundLayer within it
         grounded = Physics.CheckSphere(feetTrans.position, groundCheckDist, groundLayer);
-        Debug.Log("Player is " + grounded);
     }
 
     void Update()
     {
-        yRotation += Input.GetAxis("Mouse Y") * lookSpeedY;
-        xRotation += Input.GetAxis("Mouse X") * lookSpeedX; //inverted
-        xRotation = Mathf.Clamp(xRotation, -180, 180); //Keeps up/down head rotation realistic
-        camTrans.localEulerAngles = new Vector3(xRotation, 0, 0);
+        // Seems the movement isn't completely 1:1 with the mouse.[@mohammedajao]
+        float mouseY = Input.GetAxis("Mouse Y") * lookSpeedY;
+        float mouseX = Input.GetAxis("Mouse X") * lookSpeedX;
+
+        yRotation += mouseX;
+        xRotation -= mouseY;
+
+        xRotation = Mathf.Clamp(xRotation, -90, 90); //Keeps up/down head rotation realistic
+        camTrans.localEulerAngles = new Vector3(xRotation, yRotation, 0);
         transform.eulerAngles = new Vector3(0, yRotation, 0);
 
         if (grounded && Input.GetButtonDown("Jump")) //if the player is on the ground and press Spacebar
