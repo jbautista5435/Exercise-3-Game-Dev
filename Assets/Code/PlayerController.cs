@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// TC edited the moveSpeed to 50 and swappwed the multiplication of the lookspeed variables -- [mohammedajao]
+// TC also deleted the main camera to allow first person to work in the Unity object explorer -- [mohammedajao]
+
 public class PlayerController : MonoBehaviour
 {
-    int moveSpeed = 500; // how fast the player moves
+    int moveSpeed = 25; // how fast the player moves
     float lookSpeedX = 6; // left/right mouse sensitivity
     float lookSpeedY = 3; // up/down mouse sensitivity
-    int jumpForce = 50; // ammount of force applied to create a jump
+    int jumpForce = 250; // ammount of force applied to create a jump
 
     public Transform camTrans; // a reference to the camera transform
     float xRotation;
@@ -29,6 +32,7 @@ public class PlayerController : MonoBehaviour
 #endif
         _rigidbody = GetComponent<Rigidbody>(); // Using GetComponent is expensive. Always do it in start and chache it when you can.
         Cursor.lockState = CursorLockMode.Locked; // Hides the mouse and locks it to the center of the screen.
+        Cursor.visible = false;
     }
 
     void FixedUpdate()
@@ -46,10 +50,15 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        yRotation += Input.GetAxis("Mouse Y") * lookSpeedX;
-        xRotation += Input.GetAxis("Mouse X") * lookSpeedY; //inverted
+        // Seems the movement isn't completely 1:1 with the mouse.[@mohammedajao]
+        float mouseY = Input.GetAxis("Mouse Y") * lookSpeedY;
+        float mouseX = Input.GetAxis("Mouse X") * lookSpeedX;
+
+        yRotation += mouseX;
+        xRotation -= mouseY;
+
         xRotation = Mathf.Clamp(xRotation, -90, 90); //Keeps up/down head rotation realistic
-        camTrans.localEulerAngles = new Vector3(xRotation, 0, 0);
+        camTrans.localEulerAngles = new Vector3(xRotation, yRotation, 0);
         transform.eulerAngles = new Vector3(0, yRotation, 0);
 
         if (grounded && Input.GetButtonDown("Jump")) //if the player is on the ground and press Spacebar
