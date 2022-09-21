@@ -42,11 +42,6 @@ public class PlayerController : MonoBehaviour
         moveDir *= moveSpeed;
         moveDir.y = _rigidbody.velocity.y; // We dont want y so we replace y with that the _rigidbody.velocity.y already is.
         _rigidbody.velocity = moveDir; // Set the velocity to our movement vector
-
-        //The sphere check draws a sphere like a ray cast and returns true if any collider is withing its radius.
-        //grounded is set to true if a sphere at feetTrans.position with a radius of groundCheckDist detects any objects on groundLayer within it
-        groundLayer = LayerMask.GetMask("Ground");
-        grounded = Physics.CheckSphere(feetTrans.position, groundCheckDist, groundLayer);
     }
 
     void Update()
@@ -62,9 +57,15 @@ public class PlayerController : MonoBehaviour
         camTrans.localEulerAngles = new Vector3(xRotation, yRotation, 0);
         transform.eulerAngles = new Vector3(0, yRotation, 0);
 
+        //The sphere check draws a sphere like a ray cast and returns true if any collider is withing its radius.
+        //grounded is set to true if a sphere at feetTrans.position with a radius of groundCheckDist detects any objects on groundLayer within it
+        grounded = Physics.CheckSphere(feetTrans.position, groundCheckDist, groundLayer);
+
         if (grounded && Input.GetButtonDown("Jump")) //if the player is on the ground and press Spacebar
         {
+            print("is near ground");
             _rigidbody.AddForce(new Vector3(0, jumpForce, 0)); // Add a force jumpForce in the Y direction
+            grounded = false;
         }
     }
 }

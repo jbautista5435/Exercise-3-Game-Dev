@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5429468261946780434}
   - component: {fileID: 5429468261946780437}
   - component: {fileID: 5429468261946780436}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 5429468263180365015}
   - component: {fileID: 5429468263180365003}
   - component: {fileID: 5429468263180365002}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -187,7 +187,7 @@ MonoBehaviour:
   camTrans: {fileID: 5429468261946780434}
   groundLayer:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 64
   feetTrans: {fileID: 5429468263422911261}
   grounded: 0
 --- !u!136 &5429468263180365003
