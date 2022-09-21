@@ -64,6 +64,7 @@ public class PlayerController : MonoBehaviour
         if (grounded && Input.GetButtonDown("Jump")) //if the player is on the ground and press Spacebar
         {
             _rigidbody.AddForce(new Vector3(0, jumpForce, 0)); // Add a force jumpForce in the Y direction
+            grounded = false;
         }
     }
 }
