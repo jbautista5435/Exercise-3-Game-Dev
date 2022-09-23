@@ -51,15 +51,15 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         // Seems the movement isn't completely 1:1 with the mouse.[@mohammedajao]
-        float mouseY = Input.GetAxis("Mouse Y") * lookSpeedY;
-        float mouseX = Input.GetAxis("Mouse X") * lookSpeedX;
+        float mouseY = Input.GetAxis("Mouse X") * lookSpeedY;
+        float mouseX = Input.GetAxis("Mouse Y") * lookSpeedX;
 
-        yRotation += mouseX;
-        xRotation -= mouseY;
+        yRotation -= mouseX;
+        xRotation += mouseY;
 
-        xRotation = Mathf.Clamp(xRotation, -90, 90); //Keeps up/down head rotation realistic
-        camTrans.localEulerAngles = new Vector3(xRotation, yRotation, 0);
-        transform.eulerAngles = new Vector3(0, yRotation, 0);
+        yRotation = Mathf.Clamp(yRotation, -90, 90); //Keeps up/down head rotation realistic
+        camTrans.localEulerAngles = new Vector3(yRotation, 0 , 0);
+        transform.eulerAngles = new Vector3(0, xRotation, 0);
 
         if (grounded && Input.GetButtonDown("Jump")) //if the player is on the ground and press Spacebar
         {
