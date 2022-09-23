@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour
         xRotation += mouseY;
 
         yRotation = Mathf.Clamp(yRotation, -90, 90); //Keeps up/down head rotation realistic
-        camTrans.localEulerAngles = new Vector3(yRotation, 0 , 0);
+        camTrans.localEulerAngles = new Vector3(yRotation,0 , 0);
         transform.eulerAngles = new Vector3(0, xRotation, 0);
 
         if (grounded && Input.GetButtonDown("Jump")) //if the player is on the ground and press Spacebar
