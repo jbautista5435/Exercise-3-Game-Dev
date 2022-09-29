@@ -1,12 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 // TC edited the moveSpeed to 50 and swappwed the multiplication of the lookspeed variables -- [mohammedajao]
 // TC also deleted the main camera to allow first person to work in the Unity object explorer -- [mohammedajao]
 
 public class PlayerController : MonoBehaviour
 {
+    public float health = 100;
+    public Image healthBarImage;
+    public GameObject mainMenu;
+
     int moveSpeed = 25; // how fast the player moves
     float lookSpeedX = 6; // left/right mouse sensitivity
     float lookSpeedY = 3; // up/down mouse sensitivity
@@ -24,15 +30,23 @@ public class PlayerController : MonoBehaviour
     float groundCheckDist = .5f; //How far down to check for the ground. The radius of Physics.CheckSphere
     public bool grounded = false; //Is the player on the ground
 
+    private const float maxHealth = 100;
+    private bool mainMenuActive = false;
+    private string username;
+
     void Start()
     {
+        mainMenu.SetActive(false);
 #if UNITY_WEBGL && !UNITY_EDITOR
         lookSpeedX *= .65f; //WebGL has a bug where the mouse has higher sensitibity. This compensates for the change. 
         lookSpeedY *= .65f; //.65 is a rough guess based on testing in firefox.
 #endif
         _rigidbody = GetComponent<Rigidbody>(); // Using GetComponent is expensive. Always do it in start and chache it when you can.
-        Cursor.lockState = CursorLockMode.Locked; // Hides the mouse and locks it to the center of the screen.
-        Cursor.visible = false;
+        if (!mainMenuActive) 
+        {
+            Cursor.lockState = CursorLockMode.Locked; // Hides the mouse and locks it to the center of the screen.
+            Cursor.visible = false;
+        }
     }
 
     void FixedUpdate()
@@ -50,6 +64,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        UpdateHealthBar();
         // Seems the movement isn't completely 1:1 with the mouse.[@mohammedajao]
         float mouseY = Input.GetAxis("Mouse X") * lookSpeedY;
         float mouseX = Input.GetAxis("Mouse Y") * lookSpeedX;
@@ -66,5 +81,32 @@ public class PlayerController : MonoBehaviour
             _rigidbody.AddForce(new Vector3(0, jumpForce, 0)); // Add a force jumpForce in the Y direction
             grounded = false;
         }
+
+        if (Input.GetButtonDown("escape")) 
+        {
+            mainMenuActive = !mainMenuActive;
+            mainMenu.SetActive(mainMenuActive);
+            if (mainMenuActive) {
+                Cursor.lockState = CursorLockMode.None; // Hides the mouse and locks it to the center of the screen.
+                Cursor.visible = true;
+            }
+        }
+    }
+
+    public void decreaseHealth() {
+        health -= 5;
+        UpdateHealthBar();
+    }
+
+    public void UpdateHealthBar() {
+        healthBarImage.GetComponent<Image>().fillAmount = Mathf.Clamp(health/maxHealth, 0, 1f);
+    }
+
+    public string getUsername() { 
+        return username;
+    }
+
+    public void setUsername(string username) {
+        this.username = username;
     }
 }
