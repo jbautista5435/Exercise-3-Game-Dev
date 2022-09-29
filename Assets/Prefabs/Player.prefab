@@ -184,6 +184,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8aed589fe00a223499e4fc991acf6b91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 100
+  healthBarImage: {fileID: 0}
+  mainMenu: {fileID: 0}
   camTrans: {fileID: 5429468261946780434}
   groundLayer:
     serializedVersion: 2
