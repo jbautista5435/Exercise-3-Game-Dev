@@ -8,8 +8,6 @@ public class NextLevelTrigger : MonoBehaviour
     public int levelNumber;
     public GameObject levelloader;
 
-    private string winScreen = "WinScreen";
-
     public void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player")) 

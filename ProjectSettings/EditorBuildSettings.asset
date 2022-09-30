@@ -14,16 +14,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
-  - enabled: 1
-    path: Assets/Scenes/Level3.unity
-    guid: ccf8acd64a3ed4b8ea6d74131bd22a93
-  - enabled: 1
-    path: Assets/Scenes/Level2.unity
-    guid: 928620b39bb8c4eb8b1d0f68e5bcef50
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/WinScreen.unity
     guid: 88373487710ea4bc280fc96f0933db31
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/JORGES SCENE.unity
     guid: 359929d6dd6ca4a06b856dce09a2339e
   m_configObjects: {}

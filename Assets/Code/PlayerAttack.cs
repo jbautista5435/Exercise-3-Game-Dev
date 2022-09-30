@@ -6,13 +6,14 @@ using UnityEngine;
 
 using UnityEngine.UI;
 
+using TMPro;
+
 
 
 public class PlayerAttack : MonoBehaviour
 
 {
-
-    private float raycastDist = 50;
+    public TextMeshProUGUI score;
 
     public LayerMask enemyLayer;
 
@@ -20,6 +21,9 @@ public class PlayerAttack : MonoBehaviour
 
     public ParticleSystem muzzleFlash;
 
+    private float raycastDist = 50;
+
+    private int enemiesKilled = 0;
     
 
     //public Image reticle;
@@ -76,6 +80,7 @@ public class PlayerAttack : MonoBehaviour
 
                     Destroy(enemy);
 
+                    score.text = "Score: " + (++enemiesKilled).ToString();
                 }
 
             }

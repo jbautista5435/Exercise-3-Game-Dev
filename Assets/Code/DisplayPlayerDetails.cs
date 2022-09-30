@@ -7,6 +7,7 @@ public class DisplayPlayerDetails : MonoBehaviour
 {
     public GameObject playerDetails;
     public TextMeshProUGUI displayedDetails;
+    
     void Start()
     {
         playerDetails = GameObject.FindWithTag("PlayerDetails");
