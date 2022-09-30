@@ -86,10 +86,14 @@ public class PlayerAttack : MonoBehaviour
                 if (enemy.CompareTag("Enemy"))
 
                 {
+                    enemy.GetComponent<EnemyAIManager>().TakeDamage(50);
+                    if(enemy.GetComponent<EnemyAIManager>().health == 0) {
+                        Destroy(enemy);
+                        score.text = "Score: " + (++enemiesKilled).ToString();
+                    }
+                    // Destroy(enemy);
 
-                    Destroy(enemy);
-
-                    score.text = "Score: " + (++enemiesKilled).ToString();
+                    // score.text = "Score: " + (++enemiesKilled).ToString();
                 }
 
             }

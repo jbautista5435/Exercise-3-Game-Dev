@@ -109,4 +109,10 @@ public class PlayerController : MonoBehaviour
     public void setUsername(string username) {
         this.username = username;
     }
+
+    public void takeDamage(int damage)
+    {
+        health -= damage;
+        UpdateHealthBar();
+    }
 }
