@@ -92,6 +92,10 @@ public class PlayerController : MonoBehaviour
                 Cursor.visible = true;
             }
         }
+
+        if (transform.position.y < -10.0f) {
+            levelLoader.GetComponent<LevelLoader>().ResetLevel();
+        }
     }
 
     public void UpdateHealthBar() {
@@ -111,7 +115,8 @@ public class PlayerController : MonoBehaviour
         health -= damage;
         UpdateHealthBar();
         if (health <= 0) {
-            levelLoader.GetComponent<LevelLoader>().LoadMainMenu();
+            levelLoader.GetComponent<LevelLoader>().LoadLoseScreen();
         }
+        print(health + " health");
     }
 }

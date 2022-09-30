@@ -125,9 +125,9 @@ public class EnemyAIManager : MonoBehaviour
         GameObject target = GameObject.FindWithTag("Player");
         Vector3 directionToTarget = (target.transform.position - transform.position).normalized;
         float angle = Vector3.Angle(directionToTarget, transform.forward);
-        Debug.Log("Angle for FOV is" + angle);
+        // Debug.Log("Angle for FOV is" + angle);
         if (angle < fieldOfViewAngle * 0.5f) {
-            Debug.Log("Checking LOS");
+            // Debug.Log("Checking LOS");
             float distanceToTarget = Vector3.Distance(transform.position, target.transform.position);
             if(!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, groundLM)) {
                 // Debug.Log("Collided with" + hit.collider.name);
