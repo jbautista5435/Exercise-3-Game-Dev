@@ -7,7 +7,8 @@ using UnityEngine.SceneManagement;
 using TMPro;
 
 public class LevelLoader : MonoBehaviour
-{    
+{   
+
     public void ResetLevel() {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }

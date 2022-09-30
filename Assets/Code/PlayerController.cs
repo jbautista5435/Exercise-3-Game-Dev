@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     public float health = 100;
     public Image healthBarImage;
     public GameObject mainMenu;
+    public GameObject levelLoader;
 
     int moveSpeed = 25; // how fast the player moves
     float lookSpeedX = 6; // left/right mouse sensitivity
@@ -93,11 +94,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void decreaseHealth() {
-        health -= 5;
-        UpdateHealthBar();
-    }
-
     public void UpdateHealthBar() {
         healthBarImage.GetComponent<Image>().fillAmount = Mathf.Clamp(health/maxHealth, 0, 1f);
     }
@@ -114,5 +110,8 @@ public class PlayerController : MonoBehaviour
     {
         health -= damage;
         UpdateHealthBar();
+        if (health <= 0) {
+            levelLoader.GetComponent<LevelLoader>().LoadMainMenu();
+        }
     }
 }
