@@ -65,6 +65,10 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if (health <= 0) {
+            print("loading lose");
+            levelLoader.GetComponent<LevelLoader>().LoadLoseScreen();
+        }
         UpdateHealthBar();
         // Seems the movement isn't completely 1:1 with the mouse.[@mohammedajao]
         float mouseY = Input.GetAxis("Mouse X") * lookSpeedY;
@@ -114,9 +118,6 @@ public class PlayerController : MonoBehaviour
     {
         health -= damage;
         UpdateHealthBar();
-        if (health <= 0) {
-            levelLoader.GetComponent<LevelLoader>().LoadLoseScreen();
-        }
         print(health + " health");
     }
 }

@@ -36,6 +36,7 @@ public class LevelLoader : MonoBehaviour
     }
 
     public void LoadLoseScreen() {
+        print("loading lose screen");
         SceneManager.LoadScene("LoseScreen");
     }
 
