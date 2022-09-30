@@ -36,6 +36,10 @@ public class PlayerAttack : MonoBehaviour
     private bool isReloading = false;
     public Animator animator;
 
+    
+
+
+
     [SerializeField]
     public Transform bulletSpawnPoint;
 
@@ -65,7 +69,7 @@ public class PlayerAttack : MonoBehaviour
         if (isReloading){
             return;
         }
-        if (currentAmmo <= 0){
+        if (currentAmmo <= 0 || (Input.GetKeyDown(KeyCode.R) && (currentAmmo != maxAmmo))){
             StartCoroutine(Reload());
             return;
         }
@@ -141,9 +145,11 @@ public class PlayerAttack : MonoBehaviour
 
         animator.SetBool ("Reloading", true);
 
-        yield return new WaitForSeconds(reloadTime);
+        yield return new WaitForSeconds(reloadTime - .25f);
 
         animator.SetBool ("Reloading", false);
+
+        yield return new WaitForSeconds(.25f);
 
         currentAmmo = maxAmmo;
         isReloading = false;

@@ -6738,6 +6738,7 @@ MonoBehaviour:
   maxAmmo: 10
   reloadTime: 1
   animator: {fileID: 1984371604}
+  ammo: {fileID: 0}
   bulletSpawnPoint: {fileID: 89963261}
   bulletTrail: {fileID: 4278194452034004345, guid: 8d9a3350717d44990beda70297eb313e, type: 3}
   shootSound: {fileID: 8300000, guid: 819cda128bafd9344b78142e122d137f, type: 3}
@@ -7298,6 +7299,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 351856668230135337, guid: fa3bafd14a519465db83bf9754a1b722, type: 3}
+      propertyPath: health
+      value: 300
+      objectReference: {fileID: 0}
     - target: {fileID: 351856668230135338, guid: fa3bafd14a519465db83bf9754a1b722, type: 3}
       propertyPath: m_Name
       value: BasicEnemy
