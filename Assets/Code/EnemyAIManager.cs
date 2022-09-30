@@ -25,6 +25,7 @@ public class EnemyAIManager : MonoBehaviour
     public int health;
 
     public Vector3 bulletSpreadVariance = new Vector3(0.1f,0.1f,0.1f);
+    public Transform bulletSpawnPoint;
 
     private void Awake()
     {
@@ -34,7 +35,7 @@ public class EnemyAIManager : MonoBehaviour
 
     private void ChasePlayer()
     {
-        // agent.SetDestination(player.position);
+        agent.SetDestination(player.position);
     }
 
     public void TakeDamage(int damage)
@@ -50,7 +51,7 @@ public class EnemyAIManager : MonoBehaviour
 
     private void AttackPlayer()
     {
-        // agent.SetDestination(transform.position);
+        agent.SetDestination(transform.position);
         transform.LookAt(player);
 
         Vector3 bulletSpread = new Vector3(
@@ -62,8 +63,9 @@ public class EnemyAIManager : MonoBehaviour
 
         if(!attackDebounce) {
             attackDebounce = true;
-            GameObject nBullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
-            nBullet.GetComponent<Rigidbody>().velocity = direction * shootSpeed;
+            GameObject nBullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
+            nBullet.transform.LookAt(player);
+            nBullet.GetComponent<Rigidbody>().AddForce(nBullet.transform.forward * 32f, ForceMode.Impulse);
             Invoke(nameof(ResetAttack), attackCooldown);
         }
     }
@@ -76,7 +78,7 @@ public class EnemyAIManager : MonoBehaviour
     private void PatrolArea()
     {
         if(!walkPointFlag) GenerateWalkPoint();
-        // if(walkPointFlag) agent.SetDestination(patrolPoint);
+        if(walkPointFlag) agent.SetDestination(patrolPoint);
 
         Vector3 distanceToWP = transform.position - patrolPoint;
         if(distanceToWP.magnitude < 1f) {
@@ -108,7 +110,7 @@ public class EnemyAIManager : MonoBehaviour
         GameObject target = GameObject.Find("Player");
         Vector3 directionToTarget = transform.position - target.transform.position;
         float angle = Vector3.Angle(transform.forward, directionToTarget);
-        if (Mathf.Abs(angle) > 90) {
+        if (Mathf.Abs(angle) > 90 && Mathf.Abs(angle) < 270) {
             playerInSight = Physics.CheckSphere(transform.position, sightRange, playerLM);
             playerinAttackRange = Physics.CheckSphere(transform.position, attackRange, playerLM);
         }

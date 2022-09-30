@@ -5,6 +5,7 @@ using UnityEngine;
 public class BulletBehaviour : MonoBehaviour
 {
     public float timeLimit;
+    private bool debounce = true;
 
     // Start is called before the first frame update
     void Start()
@@ -13,10 +14,12 @@ public class BulletBehaviour : MonoBehaviour
     }
 
     private void OnCollisionEnter(Collision other) {
-        if(other.gameObject.name == "Player") {
+        Debug.Log("Bullet hit collision");
+        if(other.gameObject.name == "Player" && debounce) {
+            debounce = false;
             other.gameObject.GetComponent<PlayerController>().takeDamage(10);
         }
-        Destroy(gameObject);
+        // Destroy(gameObject);
     }
 
     IEnumerator LifespanTimer()
