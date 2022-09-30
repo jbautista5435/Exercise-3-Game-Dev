@@ -107,6 +107,12 @@ public class EnemyAIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Well, currently - this logic allows enemies to see through walls.
+        // However, to not complicate the code for development - I'll keep it like this.
+        // Reason is I'd prefer to add states for enemy, gun, & player behavior
+        // Then add 3d object detection that works based on collisions (EG cone FOV)
+        // But all that stuff seems a bit too clashing with the current repo. 
+        // -- Moe
         GameObject target = GameObject.Find("Player");
         Vector3 directionToTarget = transform.position - target.transform.position;
         float angle = Vector3.Angle(transform.forward, directionToTarget);
