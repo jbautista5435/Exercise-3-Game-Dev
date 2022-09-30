@@ -20,6 +20,13 @@ public class PlayerAttack : MonoBehaviour
 
     public ParticleSystem muzzleFlash;
 
+
+    [SerializeField]
+    public Transform bulletSpawnPoint;
+
+    [SerializeField]
+    public TrailRenderer bulletTrail;
+
     
 
     //public Image reticle;
@@ -54,6 +61,9 @@ public class PlayerAttack : MonoBehaviour
             {
                 GameObject enemy = hit.collider.gameObject;
 
+                TrailRenderer trail = Instantiate(bulletTrail, bulletSpawnPoint.position, Quaternion.identity);
+                StartCoroutine(SpawnTrail(trail, hit));
+
                 
                 /*
                 if (enemy.CompareTag("Target"))
@@ -84,6 +94,20 @@ public class PlayerAttack : MonoBehaviour
 
         
 
+    }
+
+    private IEnumerator SpawnTrail(TrailRenderer trail, RaycastHit hit)
+    {
+        float time = 0;
+        Vector3 startPosition = trail.transform.position;
+        while(time < 1) {
+            trail.transform.position = Vector3.Lerp(startPosition, hit.point, time);
+            time += Time.deltaTime / trail.time;
+
+            yield return null;
+        }
+        trail.transform.position = hit.point;
+        Destroy(trail.gameObject, trail.time);
     }
 
 }
