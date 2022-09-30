@@ -5669,6 +5669,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 351856668230135337, guid: fa3bafd14a519465db83bf9754a1b722, type: 3}
+      propertyPath: groundLM.m_Bits
+      value: 65
+      objectReference: {fileID: 0}
+    - target: {fileID: 351856668230135337, guid: fa3bafd14a519465db83bf9754a1b722, type: 3}
+      propertyPath: playerLM.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
     - target: {fileID: 351856668230135338, guid: fa3bafd14a519465db83bf9754a1b722, type: 3}
       propertyPath: m_Name
       value: BasicEnemy (3)
