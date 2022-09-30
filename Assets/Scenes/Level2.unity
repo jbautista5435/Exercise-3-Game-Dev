@@ -6094,6 +6094,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 656851698}
     - target: {fileID: 5429468263180365015, guid: 8dff0ec31f9714d428b67befd16237de, type: 3}
+      propertyPath: levelLoader
+      value: 
+      objectReference: {fileID: 885910858}
+    - target: {fileID: 5429468263180365015, guid: 8dff0ec31f9714d428b67befd16237de, type: 3}
       propertyPath: healthBarImage
       value: 
       objectReference: {fileID: 1736928250}
