@@ -24,6 +24,12 @@ public class PlayerAttack : MonoBehaviour
     private float raycastDist = 50;
 
     private int enemiesKilled = 0;
+
+    [SerializeField]
+    public Transform bulletSpawnPoint;
+
+    [SerializeField]
+    public TrailRenderer bulletTrail;
     
 
     //public Image reticle;
@@ -54,10 +60,12 @@ public class PlayerAttack : MonoBehaviour
             _audioSource.PlayOneShot(shootSound);
             
 
-            if (Physics.Raycast(camTrans.position, camTrans.forward, out hit, raycastDist, enemyLayer))
+            if (Physics.Raycast(bulletSpawnPoint.position, camTrans.forward, out hit, raycastDist, (1 << LayerMask.NameToLayer("Ground") | (1 << LayerMask.NameToLayer("Enemy")))))
 
             {
                 GameObject enemy = hit.collider.gameObject;
+                TrailRenderer trail = Instantiate(bulletTrail, bulletSpawnPoint.position, Quaternion.identity);
+                StartCoroutine(SpawnTrail(trail, hit));
 
                 
                 /*
@@ -90,6 +98,20 @@ public class PlayerAttack : MonoBehaviour
 
         
 
+    }
+
+    private IEnumerator SpawnTrail(TrailRenderer trail, RaycastHit hit)
+    {
+        float time = 0;
+        Vector3 startPosition = trail.transform.position;
+        while(time < 1) {
+            trail.transform.position = Vector3.Lerp(startPosition, hit.point, time);
+            time += Time.deltaTime / trail.time;
+
+            yield return null;
+        }
+        trail.transform.position = hit.point;
+        Destroy(trail.gameObject, trail.time);
     }
 
 }
