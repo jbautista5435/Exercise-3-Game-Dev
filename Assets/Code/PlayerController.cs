@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     public GameObject mainMenu;
     public GameObject levelLoader;
 
-    int moveSpeed = 25; // how fast the player moves
+    int moveSpeed = 10; // how fast the player moves
     float lookSpeedX = 6; // left/right mouse sensitivity
     float lookSpeedY = 3; // up/down mouse sensitivity
     int jumpForce = 250; // ammount of force applied to create a jump
