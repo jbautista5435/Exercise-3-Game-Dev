@@ -13,6 +13,10 @@ using TMPro;
 public class PlayerAttack : MonoBehaviour
 
 {
+    public int enemiesOnLevel;
+    
+    public GameObject levelLoader;
+
     public TextMeshProUGUI score;
 
     public LayerMask enemyLayer;
@@ -99,9 +103,9 @@ public class PlayerAttack : MonoBehaviour
             }
 
         }
-
-        
-
+        if (enemiesKilled >= enemiesOnLevel) {
+            levelLoader.GetComponent<LevelLoader>().LoadNextLevel();
+        }
     }
 
     private IEnumerator SpawnTrail(TrailRenderer trail, RaycastHit hit)

@@ -34,4 +34,19 @@ public class LevelLoader : MonoBehaviour
     public void LoadWinScreen() {
         SceneManager.LoadScene("WinScreen");
     }
+
+    public void LoadLoseScreen() {
+        SceneManager.LoadScene("LoseScreen");
+    }
+
+    public void LoadNextLevel() {
+        string currlevel = SceneManager.GetActiveScene().name;
+        if (currlevel.EndsWith("1")) {
+            SceneManager.LoadScene("Level2");
+        } else if (currlevel.EndsWith("2")) {
+            LoadWinScreen();
+        } else {
+            print("else: " + currlevel);
+        }
+    }
 }
