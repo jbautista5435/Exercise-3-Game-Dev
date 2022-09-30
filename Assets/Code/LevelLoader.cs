@@ -45,6 +45,8 @@ public class LevelLoader : MonoBehaviour
         if (currlevel.EndsWith("1")) {
             SceneManager.LoadScene("Level2");
         } else if (currlevel.EndsWith("2")) {
+            SceneManager.LoadScene("Level3");
+        } else if (currlevel.EndsWith("3")) {
             LoadWinScreen();
         } else {
             print("else: " + currlevel);
