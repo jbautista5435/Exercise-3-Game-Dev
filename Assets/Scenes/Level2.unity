@@ -6255,6 +6255,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3ec53a1cebf88d4ea0da41f4a3d1eb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemiesOnLevel: 0
+  levelLoader: {fileID: 0}
   score: {fileID: 1753383614}
   enemyLayer:
     serializedVersion: 2
@@ -6444,7 +6446,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 885910860}
         m_TargetAssemblyTypeName: LevelLoader, Assembly-CSharp
         m_MethodName: ResetLevel
         m_Mode: 1
@@ -8339,7 +8341,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 885910860}
         m_TargetAssemblyTypeName: LevelLoader, Assembly-CSharp
         m_MethodName: LoadMainMenu
         m_Mode: 1
