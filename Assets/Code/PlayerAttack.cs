@@ -10,6 +10,7 @@ using TMPro;
 
 
 
+
 public class PlayerAttack : MonoBehaviour
 
 {
@@ -28,6 +29,12 @@ public class PlayerAttack : MonoBehaviour
     private float raycastDist = 50;
 
     private int enemiesKilled = 0;
+
+    public int maxAmmo = 10;
+    private int currentAmmo;
+    public float reloadTime = 1f;
+    private bool isReloading = false;
+    public Animator animator;
 
     [SerializeField]
     public Transform bulletSpawnPoint;
@@ -49,20 +56,26 @@ public class PlayerAttack : MonoBehaviour
     {
         score.text = "Score: 0";
         _audioSource = GetComponent<AudioSource>();
+        currentAmmo = maxAmmo;
     }
 
     void Update()
 
     {   
-
+        if (isReloading){
+            return;
+        }
+        if (currentAmmo <= 0){
+            StartCoroutine(Reload());
+            return;
+        }
         if (Input.GetMouseButtonDown(0))
-
         {
 
             RaycastHit hit;
             muzzleFlash.Play();
             _audioSource.PlayOneShot(shootSound);
-            
+            currentAmmo--;
 
             if (Physics.Raycast(bulletSpawnPoint.position, camTrans.forward, out hit, raycastDist, (1 << LayerMask.NameToLayer("Ground") | (1 << LayerMask.NameToLayer("Enemy")))))
 
@@ -120,6 +133,20 @@ public class PlayerAttack : MonoBehaviour
         }
         trail.transform.position = hit.point;
         Destroy(trail.gameObject, trail.time);
+    }
+
+    IEnumerator Reload(){
+        isReloading = true;
+        Debug.Log("Reloading...");
+
+        animator.SetBool ("Reloading", true);
+
+        yield return new WaitForSeconds(reloadTime);
+
+        animator.SetBool ("Reloading", false);
+
+        currentAmmo = maxAmmo;
+        isReloading = false;
     }
 
 }
