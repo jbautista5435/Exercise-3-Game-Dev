@@ -14,7 +14,7 @@ public class BulletBehaviour : MonoBehaviour
     }
 
     private void OnCollisionEnter(Collision other) {
-        Debug.Log("Bullet hit collision");
+        // Debug.Log("Bullet hit collision");
         if(other.gameObject.name == "Player" && debounce) {
             debounce = false;
             other.gameObject.GetComponent<PlayerController>().takeDamage(10);
