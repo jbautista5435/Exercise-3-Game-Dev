@@ -26,6 +26,8 @@ public class EnemyAIManager : MonoBehaviour
 
     public Vector3 bulletSpreadVariance = new Vector3(0.1f,0.1f,0.1f);
     public Transform bulletSpawnPoint;
+    public float losRadius = 45f;
+    public int fieldOfViewAngle;
 
     private void Awake()
     {
@@ -107,21 +109,31 @@ public class EnemyAIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Well, currently - this logic allows enemies to see through walls.
-        // However, to not complicate the code for development - I'll keep it like this.
-        // Reason is I'd prefer to add states for enemy, gun, & player behavior
-        // Then add 3d object detection that works based on collisions (EG cone FOV)
-        // But all that stuff seems a bit too clashing with the current repo. 
-        // -- Moe
-        GameObject target = GameObject.Find("Player");
-        Vector3 directionToTarget = transform.position - target.transform.position;
-        float angle = Vector3.Angle(transform.forward, directionToTarget);
-        if (Mathf.Abs(angle) > 90 && Mathf.Abs(angle) < 270) {
-            playerInSight = Physics.CheckSphere(transform.position, sightRange, playerLM);
-            playerinAttackRange = Physics.CheckSphere(transform.position, attackRange, playerLM);
-        }
+        CheckLos();
         if(!playerInSight && !playerinAttackRange) PatrolArea();
         if(!playerinAttackRange && playerInSight) ChasePlayer();
         if(playerinAttackRange && playerInSight) AttackPlayer();
+    }
+
+    void CheckLos()
+    {
+        playerInSight = false;
+        playerinAttackRange = false;
+        if(!Physics.CheckSphere(transform.position, sightRange, playerLM)) {
+            return;
+        }
+        GameObject target = GameObject.FindWithTag("Player");
+        Vector3 directionToTarget = (target.transform.position - transform.position).normalized;
+        float angle = Vector3.Angle(directionToTarget, transform.forward);
+        Debug.Log("Angle for FOV is" + angle);
+        if (angle < fieldOfViewAngle * 0.5f) {
+            Debug.Log("Checking LOS");
+            float distanceToTarget = Vector3.Distance(transform.position, target.transform.position);
+            if(!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, groundLM)) {
+                // Debug.Log("Collided with" + hit.collider.name);
+                playerInSight = true;
+                playerinAttackRange = Physics.CheckSphere(transform.position, attackRange, playerLM);
+            }
+        }
     }
 }
