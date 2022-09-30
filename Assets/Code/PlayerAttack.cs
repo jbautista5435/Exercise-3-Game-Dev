@@ -37,6 +37,7 @@ public class PlayerAttack : MonoBehaviour
 
     private void Start()
     {
+        score.text = "Score: 0";
         _audioSource = GetComponent<AudioSource>();
     }
 
