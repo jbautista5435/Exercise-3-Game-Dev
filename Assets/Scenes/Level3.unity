@@ -6889,7 +6889,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3ec53a1cebf88d4ea0da41f4a3d1eb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemiesOnLevel: 12
+  enemiesOnLevel: 14
   levelLoader: {fileID: 885910858}
   score: {fileID: 1753383614}
   enemyLayer:

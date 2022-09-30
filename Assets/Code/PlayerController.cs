@@ -94,6 +94,9 @@ public class PlayerController : MonoBehaviour
             if (mainMenuActive) {
                 Cursor.lockState = CursorLockMode.None; // Hides the mouse and locks it to the center of the screen.
                 Cursor.visible = true;
+            } else {
+                Cursor.lockState = CursorLockMode.Locked; // Hides the mouse and locks it to the center of the screen.
+                Cursor.visible = false;
             }
         }
 
